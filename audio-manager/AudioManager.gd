@@ -12,6 +12,7 @@ extends Node
 
 
 var paused_position : float = 0.0 #the position music has been paused at
+var isIntro : bool = true
 
 func _ready() -> void:
 	for i in num_sfx_players:
@@ -45,3 +46,21 @@ func stop_music() -> void:
 func pause_music() -> void:
 	paused_position = audio_stream_player.get_playback_position()
 	audio_stream_player.stop()
+	
+func play_composite_music() -> void:
+	if audio_stream_player.playing:
+		return
+	print("Loop")
+	var intro = music[0]
+	var loop = music[1]
+	if isIntro:
+		audio_stream_player.stream = intro
+		audio_stream_player.play(paused_position)
+		isIntro = false
+	else:
+		audio_stream_player.stream = loop
+		audio_stream_player.play(paused_position)
+
+func _process(delta):
+	play_composite_music()	
+	return true

@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx4qsi2uuknpd"]
+[gd_scene load_steps=7 format=3 uid="uid://cx4qsi2uuknpd"]
 
 [ext_resource type="PackedScene" uid="uid://de5uoyuqwik06" path="res://player.tscn" id="1_1etnt"]
+[ext_resource type="PackedScene" uid="uid://b2yrjlexgqqvi" path="res://audio-manager/AudioManager.tscn" id="1_claiw"]
+[ext_resource type="AudioStream" uid="uid://bx0lbq6yy6blk" path="res://audio/Entry.mp3" id="3_gq8u8"]
+[ext_resource type="AudioStream" uid="uid://d36j3ut8wdfef" path="res://audio/Gladiators.mp3" id="4_jn8kk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dluli"]
 size = Vector3(60, 0.2, 60)
@@ -9,6 +12,9 @@ size = Vector3(60, 0.2, 60)
 size = Vector3(60, 0.2, 60)
 
 [node name="Main" type="Node"]
+
+[node name="AudioManager" parent="." instance=ExtResource("1_claiw")]
+music = Array[Resource]([ExtResource("3_gq8u8"), ExtResource("4_jn8kk")])
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.997564, -0.0697565, -9.29054e-10, -0.0159289, -0.227795, 0.973579, -0.0679134, -0.971207, -0.228351, 0.127792, 0.151184, -0.0906601)
