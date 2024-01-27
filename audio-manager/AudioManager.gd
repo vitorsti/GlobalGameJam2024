@@ -22,8 +22,8 @@ func _ready() -> void:
 func play_fx(play_sfx_name : String) -> void:
 	for i in effects.size():
 		var sound = effects[i]
-		var name = sound.resource_path.get_file().get_basename()
-		if name == play_sfx_name:
+		var sound_name = sound.resource_path.get_file().get_basename()
+		if sound_name == play_sfx_name:
 			var player = effects_container.get_child(0)
 			player.stream = sound
 			player.play()
@@ -33,8 +33,8 @@ func play_fx(play_sfx_name : String) -> void:
 func play_music(play_song_name : String) -> void:
 	for i in music.size():
 		var song = music[i]
-		var name = song.resource_path.get_file().get_basename()
-		if name == play_song_name and audio_stream_player.stream != song or paused_position > 0.0 or !audio_stream_player.playing:
+		var sound_name = song.resource_path.get_file().get_basename()
+		if sound_name == play_song_name and audio_stream_player.stream != song or paused_position > 0.0 or !audio_stream_player.playing:
 			audio_stream_player.stream = song
 			audio_stream_player.play(paused_position)
 			paused_position = 0.0
