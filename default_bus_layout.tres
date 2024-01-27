@@ -1,3 +1,62 @@
-[gd_resource type="AudioBusLayout" format=2]
+[gd_resource type="AudioBusLayout" load_steps=7 format=3 uid="uid://cfqnlel161t7u"]
+
+[sub_resource type="AudioEffectEQ21" id="AudioEffectEQ21_3a67d"]
+resource_name = "EQ21"
+band_db/22_hz = -60.0
+band_db/32_hz = -50.0
+band_db/44_hz = -35.0
+band_db/63_hz = -15.0
+band_db/90_hz = -10.0
+band_db/5600_hz = -10.0
+band_db/8000_hz = -15.0
+band_db/11000_hz = -35.0
+band_db/16000_hz = -50.0
+band_db/22000_hz = -60.0
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_yhqax"]
+resource_name = "Compressor"
+threshold = -2.0
+ratio = 10.0
+
+[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_neso5"]
+resource_name = "Delay"
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_h1q0i"]
+resource_name = "Reverb"
+room_size = 0.3
+damping = 0.4
+spread = 0.5
+dry = 0.9
+wet = 0.4
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_msgf8"]
+resource_name = "PitchShift"
+pitch_scale = 2.0
+oversampling = 16
+fft_size = 1
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_w2w30"]
+resource_name = "PitchShift"
+pitch_scale = 0.5
+oversampling = 16
+fft_size = 1
 
 [resource]
+bus/1/name = &"Musica"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectEQ21_3a67d")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectCompressor_yhqax")
+bus/1/effect/1/enabled = true
+bus/1/effect/2/effect = SubResource("AudioEffectDelay_neso5")
+bus/1/effect/2/enabled = true
+bus/1/effect/3/effect = SubResource("AudioEffectReverb_h1q0i")
+bus/1/effect/3/enabled = true
+bus/1/effect/4/effect = SubResource("AudioEffectPitchShift_msgf8")
+bus/1/effect/4/enabled = true
+bus/1/effect/5/effect = SubResource("AudioEffectPitchShift_w2w30")
+bus/1/effect/5/enabled = true
