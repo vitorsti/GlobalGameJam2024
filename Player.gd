@@ -9,7 +9,7 @@ var canAttack := false
 @onready var pitch_pivot := $TwistPivot/PitchPivot 
 
 var entered_object: RigidBody3D = null
-
+var enemyHealth: HealthManager = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -38,6 +38,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("attack"):
 		if entered_object != null && canAttack:
 			entered_object.apply_central_impulse(Vector3(0, 1, 0))
+			enemyHealth.AddHealth(1)
 			
 			
 func _unhandled_input(event):
@@ -58,11 +59,15 @@ func _draw():
 
 func _on_hit_box_area_entered(area):
 	entered_object = area.get_parent()
+	enemyHealth = area.getHealth()
+	print(enemyHealth.health)
 	canAttack = true
 	pass # Replace with function body.
 
 
 func _on_hit_box_area_exited(area):
+	area.setCoolDown(true)
 	entered_object = null
-	canAttack = false;
+	enemyHealth = null
+	canAttack = false
 	pass # Replace with function body.

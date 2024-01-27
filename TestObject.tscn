@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://8uxcyce84f26"]
+[gd_scene load_steps=8 format=3 uid="uid://b0gksle460syx"]
 
 [ext_resource type="Script" path="res://ReceiveCollision.gd" id="1_t6l0l"]
-[ext_resource type="PackedScene" uid="uid://choa6luisw0xy" path="res://hurt_box.tscn" id="2_hkwcx"]
-[ext_resource type="PackedScene" uid="uid://dttm7fkbgp0vl" path="res://hit_box.tscn" id="3_j0y5m"]
+[ext_resource type="PackedScene" path="res://hurt_box.tscn" id="2_hkwcx"]
+[ext_resource type="PackedScene" path="res://hit_box.tscn" id="3_j0y5m"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3xj6i"]
 
