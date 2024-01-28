@@ -1,0 +1,190 @@
+[gd_scene load_steps=21 format=3 uid="uid://y8xif21mxqmj"]
+
+[ext_resource type="PackedScene" uid="uid://baafy1c56wyqy" path="res://player.tscn" id="1_ghnhy"]
+[ext_resource type="PackedScene" uid="uid://b2yrjlexgqqvi" path="res://audio-manager/AudioManager.tscn" id="1_q4sva"]
+[ext_resource type="PackedScene" uid="uid://dxyvbeuq3t6uj" path="res://PalhaçoAzul.glb" id="2_7opuf"]
+[ext_resource type="AudioStream" uid="uid://bx0lbq6yy6blk" path="res://audio/Entry.mp3" id="2_rf1qx"]
+[ext_resource type="AudioStream" uid="uid://d36j3ut8wdfef" path="res://audio/Gladiators.mp3" id="3_52ysm"]
+[ext_resource type="Texture2D" uid="uid://c60y4o5d3gmd2" path="res://UI_controle.png" id="3_f2u20"]
+[ext_resource type="PackedScene" uid="uid://b06hpophe068q" path="res://risometro.tscn" id="3_vsi1d"]
+[ext_resource type="PackedScene" uid="uid://dpapib4opgctu" path="res://cenario.tscn" id="4_7lo83"]
+[ext_resource type="Texture2D" uid="uid://dtywa7wt53gbu" path="res://UI_Teclado.png" id="4_25wvv"]
+[ext_resource type="Script" path="res://DeathArea.gd" id="5_urwde"]
+[ext_resource type="Texture2D" uid="uid://dm1uohpfxqo3h" path="res://UI_player_1.png" id="5_xo78s"]
+[ext_resource type="Texture2D" uid="uid://c54bg8jtskyj1" path="res://UI_Player_2.png" id="6_5ax2s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qtnpq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_58e22"]
+sky_material = SubResource("ProceduralSkyMaterial_qtnpq")
+
+[sub_resource type="Environment" id="Environment_6ntyh"]
+background_mode = 2
+sky = SubResource("Sky_58e22")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dy8bp"]
+size = Vector3(1, 152.411, 102.224)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1nfvc"]
+size = Vector2(8.85, 12.845)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3say"]
+size = Vector3(8.66614, 1, 9.86963)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hgi3i"]
+size = Vector3(17.562, 4.21008, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aq2u6"]
+size = Vector3(8.1864, 4.10925, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="AudioManager" parent="." instance=ExtResource("1_q4sva")]
+music = Array[Resource]([ExtResource("2_rf1qx"), ExtResource("3_52ysm")])
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6ntyh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0.496748, -0.802061, 0.331573, 0.0569398, 0.411338, 0.909703, 0, 8.56187, 5.76902)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ghnhy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.38199, -4.19235)
+linear_damp = 3.0
+
+[node name="HurtBox" parent="Player" index="3"]
+risometro_path = NodePath("../../Marker3D/Camera3D/Risometro/PointerFather")
+
+[node name="Player2" parent="." instance=ExtResource("1_ghnhy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 7.606)
+linear_damp = 3.0
+player_id = 1
+
+[node name="hit_box" parent="Player2/TwistPivot" index="1"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="PalhaçoCorrer" parent="Player2/TwistPivot" index="3"]
+visible = false
+
+[node name="PalhaçoAzul" parent="Player2/TwistPivot/Node3D/Node3D/Palhaço2" index="1" instance=ExtResource("2_7opuf")]
+transform = Transform3D(1, 0, 0, 0, 0.999995, -0.00349065, 0, 0.00349065, 0.999994, -1.69425, -0.52306, 3.18394)
+
+[node name="HurtBox" parent="Player2" index="3"]
+collision_layer = 8
+collision_mask = 1
+risometro_path = NodePath("../../Marker3D/Camera3D/Risometro2/PointerFather")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(0.642788, -0.286965, 0.710264, 0, 0.927184, 0.374607, -0.766044, -0.240792, 0.595982, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.165, 50)
+projection = 1
+size = 13.976
+near = 0.012
+far = 3994.3
+
+[node name="Controle" type="Sprite3D" parent="Marker3D/Camera3D"]
+transform = Transform3D(3.31, -4.93228e-08, 9.86457e-08, 4.93228e-08, 3.31, -1.97291e-07, -9.86457e-08, 1.97291e-07, 3.31, 10.61, 3.54, -0.315)
+sorting_offset = 2.0
+texture_filter = 0
+texture = ExtResource("3_f2u20")
+
+[node name="Teclado" type="Sprite3D" parent="Marker3D/Camera3D"]
+transform = Transform3D(3.31, -4.93228e-08, 9.86457e-08, 4.93228e-08, 3.31, -1.97291e-07, -9.86457e-08, 1.97291e-07, 3.31, -9.775, 4.1, -0.315)
+sorting_offset = 2.0
+offset = Vector2(0, -20.89)
+texture_filter = 0
+texture = ExtResource("4_25wvv")
+
+[node name="Risometro2" parent="Marker3D/Camera3D" instance=ExtResource("3_vsi1d")]
+transform = Transform3D(1.32, 0, 0, 0, 1.32, -2.30798e-07, 0, 2.30798e-07, 1.32, 9.68, 5.396, -1.1)
+flip_h = true
+
+[node name="PointerFather" parent="Marker3D/Camera3D/Risometro2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, -0.484, -0.004)
+
+[node name="Pointer" parent="Marker3D/Camera3D/Risometro2/PointerFather" index="0"]
+sorting_offset = 2.0
+
+[node name="Risometro" parent="Marker3D/Camera3D" instance=ExtResource("3_vsi1d")]
+transform = Transform3D(1.32, 0, 0, 0, 1.32, -2.30798e-07, 0, 2.30798e-07, 1.32, -9.79, 5.361, -0.835)
+flip_h = true
+
+[node name="PointerFather" parent="Marker3D/Camera3D/Risometro" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055, -0.484, -0.004)
+
+[node name="Pointer" parent="Marker3D/Camera3D/Risometro/PointerFather" index="0"]
+sorting_offset = 2.0
+
+[node name="Player1" type="Sprite3D" parent="Marker3D/Camera3D"]
+transform = Transform3D(3.31, -1.19209e-07, 1.19209e-07, 5.96046e-08, 3.31, -3.27826e-07, -1.19209e-07, 8.9407e-08, 3.31, -9.775, 4.1, -0.314999)
+offset = Vector2(0, -24.745)
+texture_filter = 0
+texture = ExtResource("5_xo78s")
+
+[node name="Player2" type="Sprite3D" parent="Marker3D/Camera3D"]
+transform = Transform3D(3.31, -1.19209e-07, 1.19209e-07, 5.96046e-08, 3.31, -3.27826e-07, -1.19209e-07, 8.9407e-08, 3.31, 9.925, 4.1, -0.315)
+texture_filter = 0
+texture = ExtResource("6_5ax2s")
+
+[node name="Cenario" parent="." instance=ExtResource("4_7lo83")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.400322, -2.07302)
+
+[node name="DeathArea" type="Area3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, -8.01144, -7.39502, 3.36842)
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("5_urwde")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="DeathArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29324, 38.7245, -7.00187)
+shape = SubResource("BoxShape3D_dy8bp")
+
+[node name="Ground" type="Node" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1.63983, 0, 0, 0, 1, 0, 0, 0, 2.02185, 0.0521457, -0.185703, -1.64754)
+visible = false
+mesh = SubResource("PlaneMesh_1nfvc")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.018005, -0.497868, 1.43481)
+shape = SubResource("BoxShape3D_n3say")
+
+[node name="Wall" type="Node" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04312, 1.60504, -8.92024)
+shape = SubResource("BoxShape3D_hgi3i")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Wall/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.94157, 0, -6.90852)
+shape = SubResource("BoxShape3D_aq2u6")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Wall/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.34298, 1.55463, -6.90852)
+shape = SubResource("BoxShape3D_aq2u6")
+
+[connection signal="area_entered" from="DeathArea" to="DeathArea" method="_on_area_entered"]
+
+[editable path="Player"]
+[editable path="Player/TwistPivot/hit_box"]
+[editable path="Player/HurtBox"]
+[editable path="Player2"]
+[editable path="Player2/TwistPivot/hit_box"]
+[editable path="Player2/TwistPivot/PalhaçoCorrer"]
+[editable path="Player2/HurtBox"]
+[editable path="Marker3D/Camera3D/Risometro2"]
+[editable path="Marker3D/Camera3D/Risometro"]
